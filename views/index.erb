@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Todo App</title>
+</head>
+<body>
+<h1 class=h1> Todo app </h1>
+
+<form action="/add" method="POST">
+
+<input type="text" name="task" />
+
+<br>
+
+<input type="submit" value="Add Task" />
+
+
+</form>
+
+
+<ul>
+
+<% tasks.each do |todo| %>  
+
+
+<li class="<% if todo.done %> strikethrough <%end%>  <% if todo.imp %> underline <% end %> <% if todo.urgent %> overline <%end%>"> 
+
+
+
+<%= todo.task %> 
+
+, 
+<form action="/done" method="POST">
+
+<input type="hidden" name="task" value="<%= todo.task %>"> <!--data pass kr rha h toh dikhe na--> 
+
+<% if todo.done %>
+<input type="submit" value="UnDone">
+
+<% else %>
+
+<input type="submit" value="Done">
+<% end %>
+</form>
+
+
+<form action="/important" method="POST" >
+	
+	<input type="hidden" name="task" value="<%= todo.task %>">
+
+	<input type="checkbox" name="important_status" id="<%= todo.task %>" <% if todo.imp %> checked <%end%>>
+	<label for="<%= todo.task %>">Important Status</label>
+
+<input type="submit" class="btn danger" value="Imp">
+<style>
+		.btn {
+    border: none;
+    color: white;
+    padding: 10px 13px;
+    font-size: 16px;
+    cursor: pointer;
+	}
+
+	.danger {background-color: #f44336;} /* Red */
+    .danger:hover {background: #da190b;}
+
+	</style>
+	
+</form>
+
+<form action="/urgent" method="POST" >
+	
+	<input type="hidden" name="task" value="<%= todo.task %>">
+
+	<input type="checkbox" name="urgent_status" id="urg<%= todo.task %>" <% if todo.urgent %> checked <%end%>>
+	<label for="urg<%= todo.task %>"> Urgent status </label>
+
+	
+
+	<input type="submit" class="btn info" value="Urge">
+	<style>
+		.btn {
+    border: none;
+    color: white;
+    padding: 10px 13px;
+    font-size: 16px;
+    cursor: pointer;
+	}
+
+	.info {background-color: #2196F3;} /* Blue */
+    .info:hover {background: #0b7dda;}
+
+	</style>
+	
+
+</form>
+
+
+
+</li>
+
+<% end %>
+
+</ul>
+
+<style type="text/css">
+.strikethrough {
+	text-decoration: line-through;
+}	
+</style>
+
+<style type="text/css">
+.underline {
+	text-decoration: underline;
+}
+</style>
+
+<style type="text/css">
+.overline {
+	text-decoration: overline;
+}
+</style>
+
+<style>
+.h1 {color: rgb(160,82,45);}
+
+</style>
+
+</body>
+</html>
